@@ -3,7 +3,8 @@
 ---
 
 # Result
-
+string error_msg
+trajectory_msgs/JointTrajectory trajectory
 
 ---
 
