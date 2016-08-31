@@ -75,16 +75,21 @@ class ImitationLearningAction(object):
     def _goal_callback(self, goal):
         self._recording = True
 
+        rospy.loginfo("Start recording")
+
         r = rospy.Rate(10)
         while not rospy.is_shutdown():
             # Client wants to stop learning
             if self._as.is_preempt_requested():
+                rospy.loginfo("Preempt received")
                 self._as.set_succeeded(self._buffer.get_action_result())
                 break
 
             r.sleep()
 
         self._recording = False
+
+        rospy.loginfo("Stop recording")
 
 
 if __name__ == '__main__':
