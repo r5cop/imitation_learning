@@ -88,6 +88,7 @@ class ImitationLearningAction(object):
             r.sleep()
 
         self._recording = False
+        self._buffer.clear()
 
         rospy.loginfo("Stop recording")
 

@@ -51,7 +51,12 @@ rospy.loginfo("Recorded trajectory: %s", result)
 if not yes_or_no("Do you want to replay it?"):
     sys.exit(0)
 
-goal = FollowJointTrajectoryGoal(trajectory=result.trajectory, goal_time_tolerance=rospy.Duration(20))
+if not result.trajectory.points:
+    rospy.logerr("Empty trajectory ...")
+    sys.exit(1)
+
+goal = FollowJointTrajectoryGoal(trajectory=result.trajectory,
+                                 goal_time_tolerance=result.trajectory.points[-1].time_from_start)
 
 play_client.send_goal(goal)
 
